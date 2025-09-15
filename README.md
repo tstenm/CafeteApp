@@ -1,4 +1,5 @@
 @Author: Tobias Steinkemper
+
 @Contributions : Created the idea, the app, backend, concept, database and trasnferred menu to the database
 
 When you contribute something you can put your name and what you did in there.
