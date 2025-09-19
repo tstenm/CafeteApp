@@ -2,6 +2,7 @@
 
 @Contributions :Backend, Concept, Database, App and Design 
 
+Backend technologies : Flask, Python and MySQL. 
 When you contribute something you can put your name and state what you did in there.
 
 This app is not supposed to be perfect, secure or whatsoever. It solely serves the purpose of providing basic information for people, that want to visit our cafe. 
