@@ -2,11 +2,17 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'models/menu_items.dart';
 import '/database_workhorse.dart';
-//import 'models/active.dart'; // Dein Active-Model
 import 'dart:io'; // für HttpDate
 
-const String backendMenuUrl = 'http://192.168.48.155:5000/menu';
-const String backendActiveUrl = 'http://192.168.48.155:5000/active';
+// ✅ Basis-URL an einer Stelle definieren
+// Im Heimnetzwerk z. B. "http://192.168.48.155:5000"
+// Im Hotspot z. B. "http://10.165.83.14:5000"
+const String backendBaseUrl = 'https://backend-cyc9.onrender.com';
+
+// Endpoints dynamisch aus der Basis-URL bauen
+String get backendMenuUrl => '$backendBaseUrl/menu';
+String get backendActiveUrl => '$backendBaseUrl/active';
+String get backendNewsUrl => '$backendBaseUrl/news';
 
 // Prüft, ob das Backend erreichbar ist (beide Endpoints)
 Future<bool> checkConnection() async {
@@ -38,14 +44,14 @@ Future<List<MenuItem>> fetchMenu() async {
       throw Exception('Server antwortet mit Fehlercode ${response.statusCode}');
     }
   } catch (e) {
-    print('Fehler beim Laden des Menüs: $e');
+    print('Fehler beim Laden de        sudo snap install android-studio --classics Menüs: $e');
     throw Exception('Keine Verbindung zum Backend');
-  }
+  } 
 }
 
 // Active-Daten abrufen
 Future<Active> fetchActive() async {
-  final response = await http.get(Uri.parse('http://192.168.48.155:5000/active'));
+  final response = await http.get(Uri.parse(backendActiveUrl));
   if (response.statusCode == 200) {
     final List<dynamic> data = jsonDecode(response.body) as List<dynamic>;
     return Active.fromJson(data[0] as Map<String, dynamic>); // erstes Element der Liste
@@ -54,9 +60,10 @@ Future<Active> fetchActive() async {
   }
 }
 
+// News-Daten abrufen
 Future<List<News>> fetchNews() async {
   try {
-    final response = await http.get(Uri.parse('http://192.168.48.155:5000/news'));
+    final response = await http.get(Uri.parse(backendNewsUrl));
 
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body) as List<dynamic>;

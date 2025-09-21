@@ -36,83 +36,101 @@ class _MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Baseline(
-          baseline: 30, // Pixelhöhe anpassen, damit Text richtig sitzt
-          baselineType: TextBaseline.alphabetic,
-          child: const Text('Menu',
+        title: Align(
+          alignment: Alignment(-0.3, 0),
+          child: Baseline(
+            baseline: 30, // Pixelhöhe anpassen
+            baselineType: TextBaseline.alphabetic,
+            child: const Text(
+              'Menu',
               style: TextStyle(
                 fontFamily: 'italian',
                 color: Colors.black,
-              )),
-        )),
-        backgroundColor: Color(0xFF4B3621),
+              ),
+            ),
+          ),
+        ),
+        backgroundColor: const Color(0xFF4B3621),
       ),
       body: Container(
-        color: Color(0xFFEDE0C8),
+        color: const Color(0xFFEDE0C8),
         child: FutureBuilder<List<MenuItem>>(
           future: menuItems,
           builder: (context, snapshot) {
-            // Ladezustand
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
-            }
-            // Fehleranzeige
-            else if (snapshot.hasError) {
-              return Center(
-                child: Text('Fehler: ${snapshot.error}'),
-              );
-            }
-            // Keine Daten vorhanden
-            else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Fehler: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return const Center(child: Text('Keine Menüeinträge vorhanden'));
-            }
-            // Daten sind vorhanden → nach Kategorie gruppieren
-            else {
+            } else {
               final items = snapshot.data!;
-        
+
               // Items nach Kategorie gruppieren
               Map<String, List<MenuItem>> groupedItems = {};
               for (var item in items) {
                 groupedItems.putIfAbsent(item.category, () => []).add(item);
               }
-        
-              // ListView bauen
-              return ListView(
-                children: groupedItems.entries.map((entry) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Center(
-                          child: Text(
-                            entry.key, // Kategorie-Name
-                            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+
+              // Scrollable Column
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: groupedItems.entries.map((entry) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Center(
+                            child: Text(
+                              entry.key, // Kategorie-Name
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                      ...entry.value.map((item) => Card(
-                        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                        elevation: 3,
-                        color: Color(0xFF4B3621),
-                        child: Padding(
-                          padding: EdgeInsets.all(12),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                  padding: EdgeInsets.only(left: 20), // rückt Name nach rechts
-                                  child: Text(item.name, style: TextStyle(fontSize: 18, color: Colors.white))),
-                              Padding(
-                                padding: EdgeInsets.only(right: 20),
-                                  child: Text("${item.price.toStringAsFixed(2)} €", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white))),
-                            ],
+                        ...entry.value.map((item) => Card(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 5),
+                          elevation: 3,
+                          color: const Color(0xFF4B3621),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Row(
+                              mainAxisAlignment:
+                              MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(left: 20),
+                                  child: Text(
+                                    item.name,
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                  const EdgeInsets.only(right: 20),
+                                  child: Text(
+                                    "${item.price.toStringAsFixed(2)} €",
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      )),
-                    ],
-                  );
-                }).toList(),
+                        )),
+                      ],
+                    );
+                  }).toList(),
+                ),
               );
             }
           },

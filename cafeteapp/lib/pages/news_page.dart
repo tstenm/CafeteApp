@@ -45,41 +45,57 @@ class _State extends State<Test> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Baseline(
-            baseline: 30,
-            baselineType: TextBaseline.alphabetic,
-            child: Text(
-              'News',
-              style: TextStyle(
-                fontSize: 28,         // groß
-                fontWeight: FontWeight.bold, // fett
-                color: Colors.white,  // weiß
-              ),
+        title: Align(
+          alignment: Alignment(-0.3, 0),
+          child: Text(
+            'News',
+            style: TextStyle(
+              fontSize: 28,         // groß
+              fontWeight: FontWeight.bold, // fett
+              color: Colors.white,  // weiß
             ),
           ),
         ),
         backgroundColor: const Color(0xFF4B3621),
       ),
       body:  Container(
-        color: Colors.brown,
+        color:  const Color(0xFFEDE0C8),
         child: ListView.builder(
-            padding: const EdgeInsets.all(0),
+            padding: const EdgeInsets.all(10),
             itemCount: listnews.length,
             itemBuilder: (BuildContext context, int index) {
-        return ExpansionTile(
-          title: Center(child: Text(listnews[index].title!, style: TextStyle(color: Colors.white,)),),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+        return  Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Card(
+              margin: EdgeInsets.zero,
+              color: Color(0xFF4B3621),
+              child: ExpansionTile(
+                title: Center(
+                  child: Text(
+                    listnews[index].title!,
+                    style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                subtitle: Center(
+                  child: Text(
+                    listnews[index].formattedDate,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                collapsedBackgroundColor: Colors.transparent,
+                backgroundColor: Colors.transparent,
+                textColor: Colors.white,
+                children: [
+                  Container(
+                    color: Color(0xFFEDE0C8),
+                    child: ListTile(title: Text(listnews[index].news!)),
+                  ),
+                ],
               ),
-          subtitle: Center(child: Text(listnews[index].formattedDate, style: TextStyle(color: Colors.white,)),),
-          collapsedBackgroundColor: Color(0xFF4B3621),
-          backgroundColor: Color(0xFF4B3621),
-          textColor: Colors.white,
-          children: <Widget>[Container(
-              color: Color(0xFFEDE0C8),
-              child: ListTile(title:
-              Text(listnews[index].news!,)))],
+            ),
+          ),
         );
             }
             ),
