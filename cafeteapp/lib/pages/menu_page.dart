@@ -72,6 +72,17 @@ class _MenuPageState extends State<MenuPage> {
                 groupedItems.putIfAbsent(item.category, () => []).add(item);
               }
 
+              // Innerhalb Kategorie: nach Preis, bei gleichem Preis nach Alphabet sortieren
+              for (var entry in groupedItems.entries) {
+                entry.value.sort((a, b) {
+                  int priceCompare = a.price.compareTo(b.price);
+                  if (priceCompare != 0) {
+                    return priceCompare;
+                  }
+                  return a.name.compareTo(b.name);
+                });
+              }
+              
               // Scrollable Column
               return SingleChildScrollView(
                 child: Column(
