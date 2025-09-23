@@ -1,10 +1,10 @@
 @Author: Tobias Steinkemper
 
-@Contributions : Created the idea, the app, backend, concept, database and trasnferred menu to the database
+@Contributions :Backend, Concept, Database, App and Design
 
-When you contribute something you can put your name and what you did in there.
+Backend technologies : Flask, Python and MySQL.
 
-This app is not supposed to be perfect, secure or whatsoever. It solely serves the purpose of providing basic information for people, that want to visit our cafe. 
-Thus i used ChatGpt heavily for certain aspects of the project.
+When you contribute something you can put your name and state what you did in there.
 
-Backend is not published here.
+This app is not supposed to be perfect, secure or whatsoever. It solely serves the purpose of providing basic information for people, that want to visit our cafe. Thus i used ChatGpt for certain aspects of the project. A documentation and the code of the backend is provided on demand.
+

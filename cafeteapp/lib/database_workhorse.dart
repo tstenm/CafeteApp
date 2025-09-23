@@ -7,7 +7,7 @@ import 'dart:io'; // für HttpDate
 // ✅ Basis-URL an einer Stelle definieren
 // Im Heimnetzwerk z. B. "http://192.168.48.155:5000"
 // Im Hotspot z. B. "http://10.165.83.14:5000"
-const String backendBaseUrl = 'https://backend-cyc9.onrender.com';
+const String backendBaseUrl = 'http://51.20.239.69:5000';
 
 // Endpoints dynamisch aus der Basis-URL bauen
 String get backendMenuUrl => '$backendBaseUrl/menu';
@@ -23,7 +23,6 @@ Future<bool> checkConnection() async {
     if (responseMenu.statusCode == 200 && responseActive.statusCode == 200) {
       return true;
     } else {
-      print('Server antwortet mit Statuscodes: Menu=${responseMenu.statusCode}, Active=${responseActive.statusCode}');
       return false;
     }
   } catch (e) {
@@ -44,7 +43,6 @@ Future<List<MenuItem>> fetchMenu() async {
       throw Exception('Server antwortet mit Fehlercode ${response.statusCode}');
     }
   } catch (e) {
-    print('Fehler beim Laden de        sudo snap install android-studio --classics Menüs: $e');
     throw Exception('Keine Verbindung zum Backend');
   } 
 }
@@ -72,7 +70,6 @@ Future<List<News>> fetchNews() async {
       throw Exception('Server antwortet mit Fehlercode ${response.statusCode}');
     }
   } catch (e) {
-    print('Fehler beim Laden der News: $e');
     throw Exception('Keine Verbindung zum Backend');
   }
 }
