@@ -110,6 +110,35 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 30),
+                SizedBox(
+                  width: 200,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MenuPage(),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF4B3621),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                    child: const Text(
+                      'About Us',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white, // weiß
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),

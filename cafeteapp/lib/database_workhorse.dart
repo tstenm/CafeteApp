@@ -4,10 +4,10 @@ import 'models/menu_items.dart';
 import '/database_workhorse.dart';
 import 'dart:io'; // für HttpDate
 
-// ✅ Basis-URL an einer Stelle definieren
-// Im Heimnetzwerk z. B. "http://192.168.48.155:5000"
-// Im Hotspot z. B. "http://10.165.83.14:5000"
-const String backendBaseUrl = 'http://51.20.239.69:5000';
+String backendBaseUrl = 'http://51.20.239.69:5000';
+//String backendBaseUrl = 'http://192.168.48.87:5000/';     //nur für Heute
+
+
 
 // Endpoints dynamisch aus der Basis-URL bauen
 String get backendMenuUrl => '$backendBaseUrl/menu';
@@ -16,6 +16,7 @@ String get backendNewsUrl => '$backendBaseUrl/news';
 
 // Prüft, ob das Backend erreichbar ist (beide Endpoints)
 Future<bool> checkConnection() async {
+
   try {
     final responseMenu = await http.get(Uri.parse(backendMenuUrl)).timeout(Duration(seconds: 5));
     final responseActive = await http.get(Uri.parse(backendActiveUrl)).timeout(Duration(seconds: 5));

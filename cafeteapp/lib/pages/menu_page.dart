@@ -10,7 +10,8 @@ class MenuPage extends StatefulWidget {
 }
 
 class _MenuPageState extends State<MenuPage> {
-  late Future<List<MenuItem>> menuItems;
+  // Sofort mit leerer Future initialisieren, um LateInitializationError zu vermeiden
+  late Future<List<MenuItem>> menuItems = Future.value([]);
 
   @override
   void initState() {
@@ -76,13 +77,10 @@ class _MenuPageState extends State<MenuPage> {
               for (var entry in groupedItems.entries) {
                 entry.value.sort((a, b) {
                   int priceCompare = a.price.compareTo(b.price);
-                  if (priceCompare != 0) {
-                    return priceCompare;
-                  }
-                  return a.name.compareTo(b.name);
+                  return priceCompare != 0 ? priceCompare : a.name.compareTo(b.name);
                 });
               }
-              
+
               // Scrollable Column
               return SingleChildScrollView(
                 child: Column(
@@ -111,22 +109,18 @@ class _MenuPageState extends State<MenuPage> {
                           child: Padding(
                             padding: const EdgeInsets.all(12),
                             child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Padding(
-                                  padding:
-                                  const EdgeInsets.only(left: 20),
+                                  padding: const EdgeInsets.only(left: 20),
                                   child: Text(
                                     item.name,
                                     style: const TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.white),
+                                        fontSize: 18, color: Colors.white),
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                  const EdgeInsets.only(right: 20),
+                                  padding: const EdgeInsets.only(right: 20),
                                   child: Text(
                                     "${item.price.toStringAsFixed(2)} €",
                                     style: const TextStyle(
