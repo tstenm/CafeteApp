@@ -2,8 +2,10 @@
 
 @Contributions: Concept, App, Backend, Database, Frontend. 
 
-@Author: Sophie <Nachname>
-@Contributions: Sorting the menu by price, Database hygiene, Correction of typos.
+
+@Author: Sophie Webel
+
+@Contributions: Database Hygiene, Correction of typos, Sorting (database and in-app).
 
 
 When you contribute something you can put your name and what you did in there.
