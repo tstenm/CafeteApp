@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '/database_workhorse.dart';
 import '/models/menu_items.dart';
+import '/models/custom_classes.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key});
@@ -22,6 +23,7 @@ class _MenuPageState extends State<MenuPage> {
   // Verbindung prüfen und Menü laden
   void _loadMenu() async {
     bool connected = await checkConnection();
+
     if (connected) {
       setState(() {
         menuItems = fetchMenu();
@@ -36,23 +38,8 @@ class _MenuPageState extends State<MenuPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Align(
-          alignment: Alignment(-0.3, 0),
-          child: Baseline(
-            baseline: 30, // Pixelhöhe anpassen
-            baselineType: TextBaseline.alphabetic,
-            child: const Text(
-              'Menu',
-              style: TextStyle(
-                fontFamily: 'italian',
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ),
-        backgroundColor: const Color(0xFF4B3621),
-      ),
+      appBar: CafeteAppbar(title: 'Menu'),
+
       body: Container(
         color: const Color(0xFFEDE0C8),
         child: FutureBuilder<List<MenuItem>>(
@@ -62,9 +49,8 @@ class _MenuPageState extends State<MenuPage> {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Center(child: Text('Fehler: ${snapshot.error}'));
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Center(child: Text('Keine Menüeinträge vorhanden'));
-            } else {
+            }
+              else {
               final items = snapshot.data!;
 
               // Items nach Kategorie gruppieren

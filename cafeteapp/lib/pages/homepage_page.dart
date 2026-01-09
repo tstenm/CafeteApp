@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import '../models/custom_classes.dart';
 import '../models/menu_items.dart';
+import 'aboutus_page.dart';
 import 'menu_page.dart';
 import 'news_page.dart';
 import '/models/opening_hours_model.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -15,23 +16,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Center(
-          child: Baseline(
-            baseline: 30,
-            baselineType: TextBaseline.alphabetic,
-            child: Text(
-              'Cafete',
-              style: TextStyle(
-                fontSize: 28,         // groß
-                fontWeight: FontWeight.bold, // fett
-                color: Colors.white,  // weiß
-              ),
-            ),
-          ),
-        ),
-        backgroundColor: const Color(0xFF4B3621),
-      ),
+      appBar: customHomePageAppBar(title: 'Cafete'),
       body: Stack(
         children: [
           // Hintergrundbild
@@ -119,7 +104,7 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const MenuPage(),
+                          builder: (context) => const AboutPage(),
                         ),
                       );
                     },

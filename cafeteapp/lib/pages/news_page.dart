@@ -32,14 +32,9 @@ class _State extends State<Test> {
       });
     } catch (e) {
       print('Fehler beim Laden der News: $e');
-    }
-    if (listnews.isEmpty) {
-      print('Die Liste ist leer');
-    } else {
-      print('Die Liste enthält ${listnews.length} Einträge');
-    }
 
-  }
+  }}
+
 
   @override
   Widget build(BuildContext context) {

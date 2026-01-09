@@ -1,11 +1,11 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'models/menu_items.dart';
-import '/database_workhorse.dart';
-import 'dart:io'; // für HttpDate
 
-String backendBaseUrl = 'http://51.20.239.69:5000';
-//String backendBaseUrl = 'http://192.168.48.87:5000/';     //nur für Heute
+
+
+//String backendBaseUrl = 'https://backend-cyc9.onrender.com'; //change when something is changing
+String backendBaseUrl = 'https://cafetefu.de';
 
 
 
@@ -13,13 +13,14 @@ String backendBaseUrl = 'http://51.20.239.69:5000';
 String get backendMenuUrl => '$backendBaseUrl/menu';
 String get backendActiveUrl => '$backendBaseUrl/active';
 String get backendNewsUrl => '$backendBaseUrl/news';
+String get backendAboutUsUrl => '$backendBaseUrl/about';
 
 // Prüft, ob das Backend erreichbar ist (beide Endpoints)
 Future<bool> checkConnection() async {
 
   try {
-    final responseMenu = await http.get(Uri.parse(backendMenuUrl)).timeout(Duration(seconds: 5));
-    final responseActive = await http.get(Uri.parse(backendActiveUrl)).timeout(Duration(seconds: 5));
+    final responseMenu = await http.get(Uri.parse(backendMenuUrl)).timeout(Duration(seconds: 10));
+    final responseActive = await http.get(Uri.parse(backendActiveUrl)).timeout(Duration(seconds: 10));
 
     if (responseMenu.statusCode == 200 && responseActive.statusCode == 200) {
       return true;
@@ -35,7 +36,7 @@ Future<bool> checkConnection() async {
 // Menü-Daten abrufen
 Future<List<MenuItem>> fetchMenu() async {
   try {
-    final response = await http.get(Uri.parse(backendMenuUrl)).timeout(Duration(seconds: 5));
+    final response = await http.get(Uri.parse(backendMenuUrl)).timeout(Duration(seconds: 10));
 
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body) as List<dynamic>;
@@ -45,7 +46,7 @@ Future<List<MenuItem>> fetchMenu() async {
     }
   } catch (e) {
     throw Exception('Keine Verbindung zum Backend');
-  } 
+  }
 }
 
 // Active-Daten abrufen
@@ -72,5 +73,19 @@ Future<List<News>> fetchNews() async {
     }
   } catch (e) {
     throw Exception('Keine Verbindung zum Backend');
+  }
+}
+Future<String> fetchAboutUs() async {
+  try {
+    final response = await http.get(Uri.parse(backendAboutUsUrl));
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      return data['about'] as String;
+    } else {
+      throw Exception('Server antwortet mit Fehlercode ${response.statusCode}');
+    }
+  } catch (e) {
+    throw Exception('Keine Verbindung zum Backend: $e');
   }
 }
