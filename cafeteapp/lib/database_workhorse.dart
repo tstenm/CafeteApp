@@ -1,12 +1,13 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'models/menu_items.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
 //String backendBaseUrl = 'https://backend-cyc9.onrender.com'; //change when something is changing
-String backendBaseUrl = 'https://cafetefu.de';
-
+//String backendBaseUrl = 'https://cafetefu.de';
+//final String backendBaseUrl = dotenv.env['BACKEND_URL']!;
+final backendBaseUrl = dotenv.env['BACKEND_URL'] ?? "https://fallback-url.de";
 
 
 // Endpoints dynamisch aus der Basis-URL bauen
