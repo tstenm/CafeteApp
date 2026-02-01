@@ -23,6 +23,7 @@ class CafeteAppbar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ),
+      centerTitle: true,
       backgroundColor: const Color(0xFF4B3621),
     );
   }

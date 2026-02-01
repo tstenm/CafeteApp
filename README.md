@@ -10,3 +10,5 @@ When you contribute something you can put your name and what you did in there.
 
 
 Small mobile-app for our student-cafe called "Cafete" (or some spell it Kafete). It provides basic static and dynamic info, like news, a menu, or if employees are in the Cafe at the time. 
+
+![working_demo](images/Homescreen.png)

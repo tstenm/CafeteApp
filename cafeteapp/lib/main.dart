@@ -6,11 +6,9 @@ import 'dart:io';              // <-- für Directory
 
 
 Future<void> main() async {
-  // Absoluter Pfad zur .env vom Projektroot
-  final envPath = p.join(Directory.current.path, '.env');
-  await dotenv.load(fileName: envPath);
+  WidgetsFlutterBinding.ensureInitialized();
 
-  print('Loaded BACKEND_URL: ${dotenv.env['BACKEND_URL']}');
+  await dotenv.load(); // lädt automatisch aus Assets
 
   runApp(MyApp());
 }

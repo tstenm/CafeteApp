@@ -1,9 +1,9 @@
-// Weiterverarbeitung der erhaltenen Daten
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart'; // für HttpDate.parse
 import '/database_workhorse.dart';
+
 
 class MenuItem {
   final String name;
